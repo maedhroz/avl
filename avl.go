@@ -1,10 +1,14 @@
 package avl
 
-// Sqrt returns an approximation to the square root of x.
-func Sqrt(x float64) float64 {
-	z := 1.0
-	for i := 0; i < 1000; i++ {
-		z -= (z*z - x) / (2 * z)
-	}
-	return z
+type Node struct {
+	Left *Node
+	Value int
+	Right *Node
+}
+
+func (*Node) Insert(value int) {
+}
+
+func (*Node) Remove(value int) bool {
+	return false
 }
