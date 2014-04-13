@@ -9,18 +9,19 @@ import (
 func TestSummer(t *testing.T) {
 	rand.Seed(time.Now().Unix())
 
-	tree := &Node{nil, 500, nil}
+	root := &BstNode{}
+	root.Value = 500
 
 	expected := 500
 
 	for i := 0; i < 10; i++ {
 		value := rand.Int() % 1000
-		tree.Insert(value)
+		root.Insert(value)
 		expected += value
 	}
 
 	summer := &Summer{}
-	tree.InOrder(summer)
+	root.InOrder(summer)
 
 	if summer.Sum != expected {
 		t.Error("expected:",expected,", actual:",summer.Sum)
@@ -30,14 +31,15 @@ func TestSummer(t *testing.T) {
 func TestCounter(t *testing.T) {
 	rand.Seed(time.Now().Unix())
 
-	tree := &Node{nil, 500, nil}
+	root := &BstNode{}
+	root.Value = 500
 
 	for i := 0; i < 10; i++ {
-		tree.Insert(rand.Int()%1000)
+		root.Insert(rand.Int()%1000)
 	}
 
 	counter := &Counter{}
-	tree.InOrder(counter)
+	root.InOrder(counter)
 
 	if counter.Count != 11 {
 		t.Error("expected:",11,", actual:",counter.Count)
