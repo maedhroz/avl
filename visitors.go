@@ -1,22 +1,14 @@
 package avl
 
 type Visitor interface {
-	Visit(node *BstNode)
-}
-
-func (node *BstNode) InOrder(visitor Visitor) {
-	if node != nil {
-		node.Left.InOrder(visitor)
-		visitor.Visit(node)
-		node.Right.InOrder(visitor)
-	}
+	Visit(node *Node)
 }
 
 type Counter struct {
 	Count int
 }
 
-func (counter *Counter) Visit(*BstNode) {
+func (counter *Counter) Visit(*Node) {
 	counter.Count++
 }
 
@@ -24,6 +16,14 @@ type Summer struct {
 	Sum int
 }
 
-func (summer *Summer) Visit(node *BstNode) {
+func (summer *Summer) Visit(node *Node) {
 	summer.Sum += node.Value
+}
+
+type Lister struct {
+	Elements []int
+}
+
+func (lister *Lister) Visit(node *Node) {
+	lister.Elements = append(lister.Elements, node.Value)
 }

@@ -1,32 +1,32 @@
 package avl
 
-type BstNode struct {
-	Left *BstNode
+type Node struct {
+	Left *Node
 	Value int
-	Right *BstNode
+	Right *Node
 }
 
-func (node *BstNode) Insert(value int) {
+func (node *Node) Insert(value int) {
 	if value >= node.Value {
 		if node.Right != nil {
 			node.Right.Insert(value)
 		} else {
-			node.Right = &BstNode{nil, value, nil}
+			node.Right = &Node{nil, value, nil}
 		}
 	} else {
 		if node.Left != nil {
 			node.Left.Insert(value)
 		} else {
-			node.Left = &BstNode{nil, value, nil}
+			node.Left = &Node{nil, value, nil}
 		}
 	}
 }
 
-func (node *BstNode) Search(value int) *BstNode {
-	if value > node.Value && node.Right != nil {
-		node.Right.Search(value)
-	} else if value < node.Value && node.Left != nil {
-		node.Left.Search(value)
+func (node *Node) Search(value int) *Node {
+	if node.Right != nil && value > node.Value {
+		return node.Right.Search(value)
+	} else if node.Left != nil && value < node.Value{
+		return node.Left.Search(value)
 	}
 
 	if node.Value == value {
@@ -36,7 +36,7 @@ func (node *BstNode) Search(value int) *BstNode {
 	return nil
 }
 
-func (node *BstNode) Minimum() *BstNode {
+func (node *Node) Minimum() *Node {
 	if node.Left == nil {
 		return node
 	}
@@ -44,7 +44,7 @@ func (node *BstNode) Minimum() *BstNode {
 	return node.Left.Minimum()
 }
 
-func (node *BstNode) Maximum() *BstNode {
+func (node *Node) Maximum() *Node {
 	if node.Right == nil {
 		return node
 	}
@@ -52,3 +52,32 @@ func (node *BstNode) Maximum() *BstNode {
 	return node.Right.Maximum()
 }
 
+
+type BinarySearchTree struct {
+	root *Node
+}
+
+func (bst *BinarySearchTree) Insert(value int) {
+	if bst.root == nil {
+		bst.root = &Node{nil, value, nil}
+	} else {
+		bst.root.Insert(value)
+	}
+}
+
+func (bst *BinarySearchTree) Search(value int) *Node {
+	if bst.root == nil {
+		return nil
+	} else {
+		return bst.root.Search(value)
+	}
+}
+
+func (bst *BinarySearchTree) Delete(value int) {
+	if bst.root != nil {
+		if bst.root.Value == value {
+			// TODO: Broken unless there is only a root
+			bst.root = nil
+		}
+	}
+}

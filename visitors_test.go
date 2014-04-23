@@ -9,7 +9,7 @@ import (
 func TestSummer(t *testing.T) {
 	rand.Seed(time.Now().Unix())
 
-	root := &BstNode{}
+	root := &Node{}
 	root.Value = 500
 
 	expected := 500
@@ -31,7 +31,7 @@ func TestSummer(t *testing.T) {
 func TestCounter(t *testing.T) {
 	rand.Seed(time.Now().Unix())
 
-	root := &BstNode{}
+	root := &Node{}
 	root.Value = 500
 
 	for i := 0; i < 10; i++ {
