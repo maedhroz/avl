@@ -22,8 +22,6 @@ func TestBreadthFirst(t *testing.T) {
 
 	tree.BreadthFirst(lister)
 
-	fmt.Println(lister.Elements)
-
 	expected := []int{500, 400, 600, 300, 450, 550, 700}
 
 	if fmt.Sprintf("%v", expected) != fmt.Sprintf("%v", lister.Elements) {

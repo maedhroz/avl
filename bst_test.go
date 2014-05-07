@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 	"math/rand"
+	"fmt"
 )
 
 func TestMinimum(t *testing.T) {
@@ -121,5 +122,51 @@ func TestDeleteForOneNodeTree(t *testing.T) {
 
 	if tree.root != nil {
 		t.Error("tree should be empty, root is:",tree.root)
+	}
+}
+
+func TestDeleteLeafInThreeNodeTree(t *testing.T) {
+	rand.Seed(time.Now().Unix())
+
+	root := &Node{}
+	root.Value = 500
+
+	root.Insert(400)
+	root.Insert(600)
+
+	tree := &BinarySearchTree{root}
+
+	tree.Delete(400)
+
+	if tree.root.Left != nil {
+		t.Error("left child should be empty, but is:",tree.root.Left.Value)
+	}
+}
+
+func TestDeleteRootInThreeNodeTree(t *testing.T) {
+	rand.Seed(time.Now().Unix())
+
+	root := &Node{}
+	root.Value = 500
+
+	root.Insert(400)
+	root.Insert(600)
+
+	tree := &BinarySearchTree{root}
+
+	tree.Delete(500)
+
+	lister := &Lister{}
+
+	tree.BreadthFirst(lister)
+
+	expected := []int{600, 400}
+
+	if fmt.Sprintf("%v", expected) != fmt.Sprintf("%v", lister.Elements) {
+		t.Error("expected:",expected,", actual:",lister.Elements)
+	}
+
+	if tree.root.Value != 600 {
+		t.Error("expected root:",600,", actual root:",tree.root.Value)
 	}
 }
